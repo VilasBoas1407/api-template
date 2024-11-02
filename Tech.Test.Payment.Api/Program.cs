@@ -1,10 +1,12 @@
 using Tech.Test.Payment.Api;
 using Tech.Test.Payment.Application;
+using Tech.Test.Payment.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services.AddPresentation()
-        .AddApplication();
+        .AddApplication()
+        .AddInfrastructure(builder.Configuration);
 }
 
 

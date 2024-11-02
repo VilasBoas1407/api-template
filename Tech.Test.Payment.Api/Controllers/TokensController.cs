@@ -1,8 +1,9 @@
 ﻿using MediatR;
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 using Microsoft.AspNetCore.Mvc;
+
+using Tech.Test.Payment.Application.Tokens.Queries.Generate;
 using Tech.Test.Payment.Contracts.Tokens;
 
 namespace Tech.Test.Payment.Api.Controllers
@@ -19,15 +20,29 @@ namespace Tech.Test.Payment.Api.Controllers
         [HttpPost("generate")]
         public async Task<IActionResult> GenerateToken(GenerateTokenRequest request)
         {
-            var query = new GenerateTokenQuery()
-            return Ok(request);
+            var query = new GenerateTokenQuery(
+                request.Id,
+                request.Cpf,
+                request.Name,
+                request.Email,
+                request.Permissions,
+                request.Roles);
+
+            var result = await _mediator.Send(query);
+
+            return result.Match(
+                generateTokenResult => Ok(ToDto(generateTokenResult)),
+                Problem);
         }
 
-
-        [HttpGet]
-        public async Task <IActionResult> GetToken()
+        private static TokenResponse ToDto(GenerateTokenResult authResult)
         {
-            return Ok("Hello world");
+            return new TokenResponse(
+                authResult.Id,
+                authResult.Cpf,
+                authResult.Name,
+                authResult.Email,
+                authResult.Token);
         }
     }
 }

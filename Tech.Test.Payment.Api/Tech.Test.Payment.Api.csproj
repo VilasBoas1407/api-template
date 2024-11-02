@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Tech.Test.Payment.Application\Tech.Test.Payment.Application.csproj" />
     <ProjectReference Include="..\Tech.Test.Payment.Contracts\Tech.Test.Payment.Contracts.csproj" />
+    <ProjectReference Include="..\Tech.Test.Payment.Infrastructure\Tech.Test.Payment.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,6 +12,7 @@ namespace Tech.Test.Payment.Application.Tokens.Queries.Generate
         {
             var id = query.Id ?? Guid.NewGuid();
 
+            //TODO: criar uma model para enviar o token
             var token = _jwtTokenGenerator.GenerateToken(id, 
                 query.Cpf, 
                 query.Name, 
