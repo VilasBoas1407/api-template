@@ -26,7 +26,7 @@ namespace Tech.Test.Payment.Infrastructure.Security
 
             if (requiredRoles.Except(currentUser.Roles).Any())
             {
-                return Error.Unauthorized(description: "Usuário não tem role necessária para essa ação");
+                return Error.Unauthorized(description: "Usuário não tem papel necessário para essa ação");
             }
 
             foreach (var policy in requiredPolicies)
