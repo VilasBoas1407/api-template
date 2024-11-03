@@ -4,7 +4,8 @@ using Tech.Test.Payment.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Services.AddPresentation()
+    builder.Services
+        .AddPresentation()
         .AddApplication()
         .AddInfrastructure(builder.Configuration);
 }
@@ -14,7 +15,6 @@ var app = builder.Build();
 {
     app.UseDeveloperExceptionPage();
     app.UseExceptionHandler();
-    //app.UseInfrastructure();
 
     if (app.Environment.IsDevelopment())
     {

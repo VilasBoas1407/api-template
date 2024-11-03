@@ -25,6 +25,7 @@ namespace Tech.Test.Payment.Api.Controllers
                 request.Cpf,
                 request.Name,
                 request.Email,
+                request.Phone,
                 request.Permissions,
                 request.Roles);
 

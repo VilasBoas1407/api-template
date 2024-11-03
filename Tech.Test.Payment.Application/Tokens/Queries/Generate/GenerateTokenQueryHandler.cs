@@ -12,15 +12,15 @@ namespace Tech.Test.Payment.Application.Tokens.Queries.Generate
         {
             var id = query.Id ?? Guid.NewGuid();
 
-            //TODO: criar uma model para enviar o token
             var token = _jwtTokenGenerator.GenerateToken(id, 
                 query.Cpf, 
                 query.Name, 
                 query.Email, 
+                query.Phone,
                 query.Permissions, 
                 query.Roles);
 
-            var authResult = new GenerateTokenResult(id, query.Cpf, query.Name, query.Email, token);
+            var authResult = new GenerateTokenResult(id, query.Cpf, query.Name, query.Email, query.Phone,token);
 
             return Task.FromResult(ErrorOrFactory.From(authResult));
         }

@@ -4,7 +4,7 @@ using MediatR;
 
 using System.Reflection;
 
-using Tech.Test.Payment.Application.Common.Interfaces;
+using Tech.Test.Payment.Application.Common.Interfaces.Services;
 using Tech.Test.Payment.Application.Common.Security.Request;
 
 namespace Tech.Test.Payment.Application.Common.Behaviors;

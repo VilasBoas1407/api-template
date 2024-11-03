@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using Tech.Test.Payment.Application.Common.Security.Request;
 
-namespace Tech.Test.Payment.Application.Common.Interfaces;
+namespace Tech.Test.Payment.Application.Common.Interfaces.Services;
 
 public interface IAuthorizationService
 {

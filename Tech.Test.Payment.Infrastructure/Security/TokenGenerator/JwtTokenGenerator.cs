@@ -7,6 +7,7 @@ using System.Text;
 
 using Tech.Test.Payment.Application.Common.Interfaces;
 using Tech.Test.Payment.Application.Common.Security.TokenGenerator;
+using Tech.Test.Payment.Infrastructure.Security.Common;
 
 namespace Tech.Test.Payment.Infrastructure.Security.TokenGenerator;
 
@@ -15,17 +16,18 @@ public class JwtTokenGenerator(IOptions<JwtSettings> jwtOptions) : IJwtTokenGene
 
     private readonly JwtSettings _jwtSettings = jwtOptions.Value;
 
-    public string GenerateToken(Guid id, string cpf, string name, string email, List<string> permissions, List<string> roles)
+    public string GenerateToken(Guid id, string cpf, string name, string email, string phone, List<string> permissions, List<string> roles)
     {
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var claims = new List<Claim>
         {
-            new(JwtRegisteredClaimNames.Name, name),
-            new(JwtRegisteredClaimNames.Email, email),
-            new("id", id.ToString()),
-            new("cpf", cpf)
+            new(JwtClaimNames.Id, id.ToString()),
+            new(JwtClaimNames.Name, name),
+            new(JwtClaimNames.PhoneNumber, phone),
+            new(JwtClaimNames.Cpf, cpf),
+            new(JwtClaimNames.Email, email),
         };
 
         roles.ForEach(role => claims.Add(new(ClaimTypes.Role, role)));

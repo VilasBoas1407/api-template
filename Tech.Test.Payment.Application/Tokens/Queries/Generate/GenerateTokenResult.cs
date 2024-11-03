@@ -5,4 +5,5 @@ public record GenerateTokenResult(
     string Cpf,
     string Name,
     string Email,
+    string Phone,
     string Token);

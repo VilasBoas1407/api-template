@@ -7,6 +7,7 @@ public interface IJwtTokenGenerator
     string cpf,
     string name,
     string email,
+    string phone,
     List<string> permissions,
     List<string> roles);
 }

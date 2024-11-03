@@ -5,5 +5,6 @@ public record GenerateTokenRequest(
     string Cpf,
     string Name,
     string Email,
+    string Phone,
     List<string> Permissions,
     List<string> Roles);
