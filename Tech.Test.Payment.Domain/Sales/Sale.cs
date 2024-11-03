@@ -1,4 +1,5 @@
-﻿using Tech.Test.Payment.Domain.Common;
+﻿using ErrorOr;
+using Tech.Test.Payment.Domain.Common;
 using Tech.Test.Payment.Domain.Sells;
 
 namespace Tech.Test.Payment.Domain.Sales;
@@ -40,5 +41,15 @@ public class Sale : Entity
         Items.Add(item);
     }
 
-    public void RemoveItem(ItemSale item) { }
+    public ErrorOr<Success> RemoveItem(Guid idItemSale) { 
+    
+        var item = Items.FirstOrDefault(x => x.Id == idItemSale);
+
+        if (item == null)
+            return Error.NotFound(description: $"Não foi encontrada um item com o Id :{idItemSale} na venda.");
+
+        Items.Remove(item);
+
+        return Result.Success;
+    }
 }

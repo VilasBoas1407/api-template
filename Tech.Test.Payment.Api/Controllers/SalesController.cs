@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Tech.Test.Payment.Application.Sales.Commands.AddItemSale;
 using Tech.Test.Payment.Application.Sales.Commands.CreateSale;
+using Tech.Test.Payment.Application.Sales.Commands.RemoveItemSale;
 using Tech.Test.Payment.Application.Sales.Common;
 using Tech.Test.Payment.Application.Sales.Queries.GetSale;
 using Tech.Test.Payment.Contracts.Sales;
@@ -53,6 +54,18 @@ namespace Tech.Test.Payment.Api.Controllers
                 .ToList();
 
             var command = new AddItemSaleCommand(saleId, items);
+
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                sale => NoContent(),
+                Problem);
+        }
+
+        [HttpPatch("{saleId}/remove/itens")]
+        public async Task<IActionResult> RemoveItens([FromRoute] Guid saleId, [FromBody] IList<Guid> request)
+        {
+            var command = new RemoveItemSaleCommand(saleId, request);
 
             var result = await _mediator.Send(command);
 
