@@ -7,18 +7,21 @@ public class Sale : Entity
 {
     public Sale()
     {  }
+
     public Sale(Guid? id, string customerName, string customerPhone,
-        Guid sellerId, string sellerName, string sellerCpf, string sellerEmail)
+        Guid sellerId, string sellerName, string sellerCpf, string sellerEmail, string sellerPhone)
         : base(id ?? Guid.NewGuid())
     {
         CustomerName = customerName;
         CustomerPhone = customerPhone;
-        SellerCpf = sellerCpf;
-        SellerEmail = sellerEmail;
         Status = SaleStatus.WaitingPayment;
         SaleDate = DateTime.UtcNow;
         SellerId = sellerId;
         SellerName = sellerName;
+        SellerCpf = sellerCpf;
+        SellerEmail = sellerEmail;
+        SellerPhone = sellerPhone;
+        Items = [];
     }
 
     public string CustomerName { get; protected set; }

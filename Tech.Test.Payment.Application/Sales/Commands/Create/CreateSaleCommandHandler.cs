@@ -1,11 +1,13 @@
 ﻿using ErrorOr;
 using MediatR;
+using Tech.Test.Payment.Application.Common.Interfaces.Repository;
 using Tech.Test.Payment.Application.Common.Interfaces.Services;
 using Tech.Test.Payment.Domain.Sales;
 
 namespace Tech.Test.Payment.Application.Sales.Commands.Create;
 
-public class CreateSaleCommandHandler(IUserContextService _userContextService) : IRequestHandler<CreateSaleCommand, ErrorOr<Sale>>
+public class CreateSaleCommandHandler(IUserContextService _userContextService,
+    ISalesRepository _salesRepository) : IRequestHandler<CreateSaleCommand, ErrorOr<Sale>>
 {
     public async Task<ErrorOr<Sale>> Handle(CreateSaleCommand request, CancellationToken cancellationToken)
     {
@@ -15,13 +17,14 @@ public class CreateSaleCommandHandler(IUserContextService _userContextService) :
         var user = _userContextService.GetCurrentUser();
 
         var sale = new Sale(Guid.NewGuid(), request.CustomerName, request.CustomerPhone,
-            user.Id,user.Name,user.Cpf, user.Email);
+            user.Id, user.Name, user.Cpf, user.Email, user.Phone);
 
         foreach (var item in request.Items)
-        {
-            sale.AddItem(new ItemSale(Guid.NewGuid(), sale.Id, 
+            sale.AddItem(new ItemSale(Guid.NewGuid(), sale.Id,
                 item.Name, item.Price, item.Quantity));
-        }
+
+
+        await _salesRepository.AddAsync(sale, cancellationToken);
 
         return sale;
     }

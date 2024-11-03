@@ -19,7 +19,7 @@ public class UserContextService : IUserContextService
 
         var userIdClaim = userClaims.FindFirst(JwtClaimNames.Id)?.Value;
         var emailClaim = userClaims.FindFirst(JwtClaimNames.Email)?.Value; 
-        var cpfClaim = userClaims.FindFirst(JwtClaimNames.Email)?.Value;
+        var cpfClaim = userClaims.FindFirst(JwtClaimNames.Cpf)?.Value;
         var userNameClaim = userClaims.FindFirst(JwtClaimNames.Name)?.Value;
         var phoneClaim = userClaims.FindFirst(JwtClaimNames.PhoneNumber)?.Value;
 
