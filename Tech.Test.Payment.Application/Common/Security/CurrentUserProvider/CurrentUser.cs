@@ -4,6 +4,8 @@ public record CurrentUser(Guid Id,
     string Name,
     string Email,
     string Phone,
-    string Cpf);
+    string Cpf,
+    IReadOnlyList<string> Permissions,
+    IReadOnlyList<string> Roles);
 
 

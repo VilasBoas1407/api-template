@@ -5,11 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Tech.Test.Payment.Application.Common.Interfaces;
 using Tech.Test.Payment.Application.Common.Interfaces.Repository;
+using Tech.Test.Payment.Application.Common.Interfaces.Services;
 using Tech.Test.Payment.Application.Common.Security.CurrentUserProvider;
 using Tech.Test.Payment.Application.Common.Security.TokenGenerator;
 using Tech.Test.Payment.Infrastructure.Common.Persistence;
 using Tech.Test.Payment.Infrastructure.Sales.Persistence;
+using Tech.Test.Payment.Infrastructure.Security;
 using Tech.Test.Payment.Infrastructure.Security.CurrentUserProvider;
+using Tech.Test.Payment.Infrastructure.Security.PolicyEnforcer;
 using Tech.Test.Payment.Infrastructure.Security.TokenGenerator;
 using Tech.Test.Payment.Infrastructure.Security.TokenValidation;
 
@@ -21,6 +24,7 @@ namespace Tech.Test.Payment.Infrastructure
         {
             services
                 .AddHttpContextAccessor()
+                .AddAuthorization()
                 .AddPersistence(configuration)
                 .AddAuthentication(configuration);
 
@@ -36,6 +40,16 @@ namespace Tech.Test.Payment.Infrastructure
 
             return services;
         }
+
+        private static IServiceCollection AddAuthorization(this IServiceCollection services)
+        {
+            services.AddScoped<IAuthorizationService, AuthorizationService>();
+            services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
+            services.AddSingleton<IPolicyEnforcer, PolicyEnforcer>();
+
+            return services;
+        }
+
 
         private static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
         {

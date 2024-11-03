@@ -1,29 +1,33 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Tech.Test.Payment.Infrastructure.Security.Common;
 using Tech.Test.Payment.Application.Common.Security.CurrentUserProvider;
+using Tech.Test.Payment.Infrastructure.Security.Common;
 
 namespace Tech.Test.Payment.Infrastructure.Security.CurrentUserProvider;
 
-public class CurrentUserProvider :  ICurrentUserProvider
+public class CurrentUserProvider(IHttpContextAccessor _httpContextAccessor) :  ICurrentUserProvider
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    public CurrentUserProvider(IHttpContextAccessor httpContextAccessor)
-    {
-        _httpContextAccessor = httpContextAccessor;
-    }
-
     public CurrentUser GetCurrentUser()
     {
-        var userClaims = _httpContextAccessor.HttpContext.User;
+        var id = GetSingleClaimValue(JwtClaimNames.Id);
+        var email = GetSingleClaimValue(JwtClaimNames.Email);
+        var cpf = GetSingleClaimValue(JwtClaimNames.Cpf);
+        var name = GetSingleClaimValue(JwtClaimNames.Name);
+        var phone = GetSingleClaimValue(JwtClaimNames.PhoneNumber);
+        var permissions = GetClaimValues(JwtClaimNames.Permissions);
+        var roles = GetClaimValues(JwtClaimNames.Role);
 
-        var id = userClaims.FindFirst(JwtClaimNames.Id)?.Value;
-        var email = userClaims.FindFirst(JwtClaimNames.Email)?.Value;
-        var cpf = userClaims.FindFirst(JwtClaimNames.Cpf)?.Value;
-        var name = userClaims.FindFirst(JwtClaimNames.Name)?.Value;
-        var phone = userClaims.FindFirst(JwtClaimNames.PhoneNumber)?.Value;
-
-        return new CurrentUser(Guid.Parse(id),name,email,phone,cpf);
+        return new CurrentUser(Guid.Parse(id),name,email,phone,cpf,permissions,roles);
 
     }
 
+    private List<string> GetClaimValues(string claimType) =>
+    _httpContextAccessor.HttpContext!.User.Claims
+        .Where(claim => claim.Type == claimType)
+        .Select(claim => claim.Value)
+        .ToList();
+
+    private string GetSingleClaimValue(string claimType) =>
+        _httpContextAccessor.HttpContext!.User.Claims
+            .Single(claim => claim.Type == claimType)
+            .Value ?? "";
 }

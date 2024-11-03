@@ -30,8 +30,8 @@ public class JwtTokenGenerator(IOptions<JwtSettings> jwtOptions) : IJwtTokenGene
             new(JwtClaimNames.Email, email),
         };
 
-        roles.ForEach(role => claims.Add(new(ClaimTypes.Role, role)));
-        permissions.ForEach(permission => claims.Add(new("permissions", permission)));
+        roles.ForEach(role => claims.Add(new(JwtClaimNames.Role, role)));
+        permissions.ForEach(permission => claims.Add(new(JwtClaimNames.Permissions, permission)));
 
         var token = new JwtSecurityToken(
             _jwtSettings.Issuer,
