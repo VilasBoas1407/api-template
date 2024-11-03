@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Tech.Test.Payment.Application.Sales.Commands.Create;
+using Tech.Test.Payment.Application.Sales.Queries.GetSale;
 using Tech.Test.Payment.Contracts.Sales;
 using Tech.Test.Payment.Domain.Sales;
 
@@ -28,7 +29,7 @@ namespace Tech.Test.Payment.Api.Controllers
                 sale => CreatedAtAction(
                     actionName: nameof(GetSaleById),
                     routeValues: new { SaleId = sale },
-                    value: ToDto(sale)),
+                    value: CreateToDto(sale)),
                 Problem);
         }
     
@@ -36,7 +37,13 @@ namespace Tech.Test.Payment.Api.Controllers
         [HttpGet("{saleId}")]
         public async Task<IActionResult> GetSaleById([FromRoute] Guid saleId)
         {
-            return Ok();
+            var query = new GetSaleQuery(saleId);
+
+            var result = await _mediator.Send(query);
+
+            return result.Match(
+                reminder => Ok(GetToDto(reminder)),
+                Problem);
         }
 
         [HttpPatch("{saleId}/itens")]
@@ -52,7 +59,15 @@ namespace Tech.Test.Payment.Api.Controllers
         }
 
 
-        private CreateSaleResponse ToDto(Sale sale) =>
+        private CreateSaleResponse CreateToDto(Sale sale) =>
             new(sale.Id,sale.CustomerName, sale.Items.Count);
+
+
+        private GetSaleResponse GetToDto(Sale sale)
+        {
+            return new GetSaleResponse(sale.Id, sale.CustomerName, sale.CustomerPhone, sale.SellerId,
+                sale.SellerName, sale.SellerCpf, sale.SellerEmail, sale.SellerPhone, sale.Status,
+                sale.SaleDate, sale.Items.Select(x => new GetSaleItemResponse(x.Id, x.Name, x.Price, x.Quantity)).ToList());
+        }
     }
 }

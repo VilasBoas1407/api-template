@@ -33,7 +33,7 @@ public class Sale : Entity
     public string SellerPhone { get; protected set; }
     public SaleStatus Status { get; protected set; }
     public DateTime SaleDate { get; protected set; }
-    public ICollection<ItemSale> Items { get; protected set; }
+    public virtual ICollection<ItemSale> Items { get; protected set; }
 
     public void AddItem(ItemSale item)
     {

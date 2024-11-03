@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Tech.Test.Payment.Domain\Tech.Test.Payment.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Sales\Queries\" />
-  </ItemGroup>
-
 </Project>

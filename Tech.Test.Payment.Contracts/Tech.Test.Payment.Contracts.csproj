@@ -10,4 +10,8 @@
     <Folder Include="Common\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tech.Test.Payment.Domain\Tech.Test.Payment.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
