@@ -1,12 +1,11 @@
 ﻿using ErrorOr;
 using MediatR;
 using Tech.Test.Payment.Application.Common.Interfaces.Repository;
-using Tech.Test.Payment.Domain.Sales;
 using Tech.Test.Payment.Domain.Sells;
 
 namespace Tech.Test.Payment.Application.Sales.Commands.RemoveItemSale;
 
-public class RemoveItemSaleCommandHandlerr(ISalesRepository _salesRepository) : IRequestHandler<RemoveItemSaleCommand, ErrorOr<Success>>
+public class RemoveItemSaleCommandHandler(ISalesRepository _salesRepository) : IRequestHandler<RemoveItemSaleCommand, ErrorOr<Success>>
 {
     public async Task<ErrorOr<Success>> Handle(RemoveItemSaleCommand request, CancellationToken cancellationToken)
     {

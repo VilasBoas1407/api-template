@@ -1,12 +1,15 @@
-﻿using MediatR;
+﻿using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Tech.Test.Payment.Application.Sales.Commands.AddItemSale;
 using Tech.Test.Payment.Application.Sales.Commands.CreateSale;
 using Tech.Test.Payment.Application.Sales.Commands.RemoveItemSale;
+using Tech.Test.Payment.Application.Sales.Commands.UpdateSaleStatus;
 using Tech.Test.Payment.Application.Sales.Common;
 using Tech.Test.Payment.Application.Sales.Queries.GetSale;
 using Tech.Test.Payment.Contracts.Sales;
 using Tech.Test.Payment.Domain.Sales;
+using Tech.Test.Payment.Domain.Sells;
 
 namespace Tech.Test.Payment.Api.Controllers
 {
@@ -75,9 +78,15 @@ namespace Tech.Test.Payment.Api.Controllers
         }
 
         [HttpPut("{saleId}/status/{newStatus}")]
-        public async Task<IActionResult> PutStatus([FromRoute] Guid saleId, string newStatus)
+        public async Task<IActionResult> PutStatus([FromRoute] Guid saleId, SaleStatus newStatus)
         {
-            return Ok();
+            var command = new UpdateSaleStatusCommand(saleId, newStatus);
+
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                sale => NoContent(),
+                Problem);
         }
 
 

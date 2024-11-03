@@ -8,5 +8,6 @@ public static partial class Permission
         public const string Get = "get:sale";
         public const string AddItem = "add:item-sale";
         public const string RemoveItem = "remove:item-sale";
+        public const string UpdateStatus = "update:sale-status";
     }
 }

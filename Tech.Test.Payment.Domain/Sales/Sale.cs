@@ -52,4 +52,52 @@ public class Sale : Entity
 
         return Result.Success;
     }
+
+    public ErrorOr<Success> UpdateStatus(SaleStatus newStatus)
+    {
+        if (newStatus == SaleStatus.Delivered)
+            return Error.Conflict(description: "A venda não pode ter o status alterado, pois já foi entregue");
+
+        if (newStatus == Status)
+            return Error.Conflict(description: "O novo status deve ser diferente do status atual.");
+        
+
+        switch (Status)
+        {
+            case SaleStatus.WaitingPayment:
+                if (newStatus == SaleStatus.PaymentApproved || newStatus == SaleStatus.Canceled)
+                {
+                    Status = newStatus;
+                    return Result.Success;
+                }
+                break;
+            case SaleStatus.PaymentApproved:
+                if (newStatus == SaleStatus.Send || newStatus == SaleStatus.Canceled)
+                {
+                    Status = newStatus;
+                    return Result.Success;
+                }
+                break;
+            case SaleStatus.Send:
+                if (newStatus == SaleStatus.Delivered)
+                {
+                    Status = newStatus;
+                    return Result.Success;
+                }
+                break;
+        }
+
+        return Error.Conflict(description: $"Novo status inválido - A venda só pode ser alterada para {GetValidTransitions(Status)}.");
+    }
+
+    private static string GetValidTransitions(SaleStatus currentStatus)
+    {
+        return currentStatus switch
+        {
+            SaleStatus.WaitingPayment => "Pagamento Aprovado ou Cancelada",
+            SaleStatus.PaymentApproved => "Enviada para Transportadora ou Cancelada",
+            SaleStatus.Send => "Entregue",
+            _ => "Status inválido"
+        };
+    }
 }
