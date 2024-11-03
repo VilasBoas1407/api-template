@@ -19,7 +19,7 @@ namespace Tech.Test.Payment.Infrastructure.Sales.Configuration
             builder.Property(u => u.CustomerPhone)
                 .HasMaxLength(30);
 
-            builder.HasKey(u => u.SellerId);
+            builder.Property(u => u.SellerId);
 
             builder.Property(u => u.SellerName)
                 .HasMaxLength(1000);

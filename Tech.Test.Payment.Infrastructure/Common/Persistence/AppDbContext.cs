@@ -1,18 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tech.Test.Payment.Domain.Sales;
 
-namespace Tech.Test.Payment.Infrastructure.Common.Persistence
+namespace Tech.Test.Payment.Infrastructure.Common.Persistence;
+
+public class AppDbContext : DbContext
 {
-    public class AppDbContext(DbContextOptions options) : DbContext(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
     {
-        public DbSet<Sale> Sale { get; set; }
-        public DbSet<ItemSale> ItemSale { get; set; }
+    }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+    public DbSet<Sale> Sales { get; set; } 
+    public DbSet<ItemSale> ItemSales { get; set; } 
 
-            base.OnModelCreating(modelBuilder);
-        }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        base.OnModelCreating(modelBuilder);
     }
 }
