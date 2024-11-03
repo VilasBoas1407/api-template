@@ -55,7 +55,7 @@ public class Sale : Entity
 
     public ErrorOr<Success> UpdateStatus(SaleStatus newStatus)
     {
-        if (newStatus == SaleStatus.Delivered)
+        if (Status == SaleStatus.Delivered)
             return Error.Conflict(description: "A venda não pode ter o status alterado, pois já foi entregue");
 
         if (newStatus == Status)
