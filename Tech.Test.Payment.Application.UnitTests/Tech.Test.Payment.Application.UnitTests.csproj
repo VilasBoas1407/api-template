@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tech.Test.Payment.Application\Tech.Test.Payment.Application.csproj" />
-    <ProjectReference Include="..\TestCommon\TestCommon.csproj" />
   </ItemGroup>
 
   <ItemGroup>
