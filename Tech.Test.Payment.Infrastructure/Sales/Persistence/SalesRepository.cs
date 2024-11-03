@@ -20,5 +20,11 @@ namespace Tech.Test.Payment.Infrastructure.Sales.Persistence
                    .Where(x => x.Id == saleId)
                    .FirstOrDefaultAsync();
         }
+
+        public async Task UpdateAsync(Sale sale, CancellationToken cancellationToken)
+        {
+            _dbContext.Update(sale);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+        }
     }
 }

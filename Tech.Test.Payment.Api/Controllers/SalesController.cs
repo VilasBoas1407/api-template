@@ -1,7 +1,8 @@
-﻿using ErrorOr;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Tech.Test.Payment.Application.Sales.Commands.Create;
+using Tech.Test.Payment.Application.Sales.Commands.AddItemSale;
+using Tech.Test.Payment.Application.Sales.Commands.CreateSale;
+using Tech.Test.Payment.Application.Sales.Common;
 using Tech.Test.Payment.Application.Sales.Queries.GetSale;
 using Tech.Test.Payment.Contracts.Sales;
 using Tech.Test.Payment.Domain.Sales;
@@ -15,10 +16,8 @@ namespace Tech.Test.Payment.Api.Controllers
         public async Task<IActionResult> CreateSale(CreateSaleRequest request)
         {
             var items = request.Items.
-                Select(x => 
-                    new SaleItemDto { Name = x.ItemName, 
-                        Price = x.ItemPrice, 
-                        Quantity = x.ItemQuantity })
+                Select(x =>
+                    new ItemSaleDto(x.ItemName, x.ItemPrice, x.ItemQuantity))
                 .ToList();
 
             var command = new CreateSaleCommand(request.CustomerName, request.CustomerPhone, items);
@@ -32,7 +31,6 @@ namespace Tech.Test.Payment.Api.Controllers
                     value: CreateToDto(sale)),
                 Problem);
         }
-    
 
         [HttpGet("{saleId}")]
         public async Task<IActionResult> GetSaleById([FromRoute] Guid saleId)
@@ -42,14 +40,25 @@ namespace Tech.Test.Payment.Api.Controllers
             var result = await _mediator.Send(query);
 
             return result.Match(
-                reminder => Ok(GetToDto(reminder)),
+                sale => Ok(GetToDto(sale)),
                 Problem);
         }
 
-        [HttpPatch("{saleId}/itens")]
-        public async Task<IActionResult> PatchItens([FromRoute] Guid saleId)
+        [HttpPatch("{saleId}/add/itens")]
+        public async Task<IActionResult> PatchItens([FromRoute] Guid saleId, [FromBody] IList<AddItemSaleRequest> request)
         {
-            return Ok();
+            var items = request.
+                Select(x =>
+                    new ItemSaleDto(x.ItemName, x.ItemPrice, x.ItemQuantity))
+                .ToList();
+
+            var command = new AddItemSaleCommand(saleId, items);
+
+            var result = await _mediator.Send(command);
+
+            return result.Match(
+                sale => NoContent(),
+                Problem);
         }
 
         [HttpPut("{saleId}/status/{newStatus}")]
@@ -60,7 +69,7 @@ namespace Tech.Test.Payment.Api.Controllers
 
 
         private CreateSaleResponse CreateToDto(Sale sale) =>
-            new(sale.Id,sale.CustomerName, sale.Items.Count);
+            new(sale.Id, sale.CustomerName, sale.Items.Count);
 
 
         private GetSaleResponse GetToDto(Sale sale)

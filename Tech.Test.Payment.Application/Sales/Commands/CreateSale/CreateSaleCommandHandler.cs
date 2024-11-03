@@ -4,7 +4,7 @@ using Tech.Test.Payment.Application.Common.Interfaces.Repository;
 using Tech.Test.Payment.Application.Common.Security.CurrentUserProvider;
 using Tech.Test.Payment.Domain.Sales;
 
-namespace Tech.Test.Payment.Application.Sales.Commands.Create;
+namespace Tech.Test.Payment.Application.Sales.Commands.CreateSale;
 
 public class CreateSaleCommandHandler(ICurrentUserProvider _userContextService,
     ISalesRepository _salesRepository) : IRequestHandler<CreateSaleCommand, ErrorOr<Sale>>

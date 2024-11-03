@@ -6,5 +6,6 @@ public static partial class Permission
     {
         public const string Create = "create:sale";
         public const string Get = "get:sale";
+        public const string AddItem = "add:item-sale";
     }
 }

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Tech.Test.Payment.Application.Sales.Commands.Create;
+namespace Tech.Test.Payment.Application.Sales.Commands.CreateSale;
 
 public class CreateSaleCommandValidator : AbstractValidator<CreateSaleCommand>
 {
