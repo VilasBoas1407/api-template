@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Test.Payment.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Test.Payment.Api", "Tech.Test.Payment.Api\Tech.Test.Payment.Api.csproj", "{0515ED24-7724-431A-A92A-197A8A149603}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Test.Payment.Contracts", "Tech.Test.Payment.Contracts\Tech.Test.Payment.Contracts.csproj", "{35609474-F05C-4367-8076-12743A3AB72F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Test.Payment.Contracts", "Tech.Test.Payment.Contracts\Tech.Test.Payment.Contracts.csproj", "{35609474-F05C-4367-8076-12743A3AB72F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Test.Payment.Domain", "Tech.Test.Payment.Domain\Tech.Test.Payment.Domain.csproj", "{403EEFAE-6405-4D5C-990D-6A9EB488A0F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Test.Payment.Domain", "Tech.Test.Payment.Domain\Tech.Test.Payment.Domain.csproj", "{403EEFAE-6405-4D5C-990D-6A9EB488A0F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Test.Payment.Infrastructure", "Tech.Test.Payment.Infrastructure\Tech.Test.Payment.Infrastructure.csproj", "{10667596-3D57-4DD5-9022-210280CC3FBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Test.Payment.Infrastructure", "Tech.Test.Payment.Infrastructure\Tech.Test.Payment.Infrastructure.csproj", "{10667596-3D57-4DD5-9022-210280CC3FBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

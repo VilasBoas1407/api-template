@@ -8,7 +8,7 @@ using Tech.Test.Payment.Contracts.Tokens;
 
 namespace Tech.Test.Payment.Api.Controllers
 {
-    [Route("/api/tokens")]
+    [Route("api/tokens")]
     [AllowAnonymous]
     public class TokensController(ISender _mediator) : ApiController
     {
