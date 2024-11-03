@@ -1,12 +1,12 @@
 ﻿using ErrorOr;
 using MediatR;
 using Tech.Test.Payment.Application.Common.Interfaces.Repository;
-using Tech.Test.Payment.Application.Common.Interfaces.Services;
+using Tech.Test.Payment.Application.Common.Security.CurrentUserProvider;
 using Tech.Test.Payment.Domain.Sales;
 
 namespace Tech.Test.Payment.Application.Sales.Commands.Create;
 
-public class CreateSaleCommandHandler(IUserContextService _userContextService,
+public class CreateSaleCommandHandler(ICurrentUserProvider _userContextService,
     ISalesRepository _salesRepository) : IRequestHandler<CreateSaleCommand, ErrorOr<Sale>>
 {
     public async Task<ErrorOr<Sale>> Handle(CreateSaleCommand request, CancellationToken cancellationToken)

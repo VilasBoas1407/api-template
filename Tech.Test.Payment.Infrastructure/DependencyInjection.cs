@@ -5,13 +5,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Tech.Test.Payment.Application.Common.Interfaces;
 using Tech.Test.Payment.Application.Common.Interfaces.Repository;
-using Tech.Test.Payment.Application.Common.Interfaces.Services;
+using Tech.Test.Payment.Application.Common.Security.CurrentUserProvider;
 using Tech.Test.Payment.Application.Common.Security.TokenGenerator;
 using Tech.Test.Payment.Infrastructure.Common.Persistence;
 using Tech.Test.Payment.Infrastructure.Sales.Persistence;
+using Tech.Test.Payment.Infrastructure.Security.CurrentUserProvider;
 using Tech.Test.Payment.Infrastructure.Security.TokenGenerator;
 using Tech.Test.Payment.Infrastructure.Security.TokenValidation;
-using Tech.Test.Payment.Infrastructure.Services;
 
 namespace Tech.Test.Payment.Infrastructure
 {
@@ -42,7 +42,7 @@ namespace Tech.Test.Payment.Infrastructure
             services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.Section));
 
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
-            services.AddSingleton<IUserContextService, UserContextService>();
+            services.AddSingleton<ICurrentUserProvider, CurrentUserProvider>();
 
             services
                 .ConfigureOptions<JwtBearerTokenValidationConfiguration>()
