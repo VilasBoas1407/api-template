@@ -22,9 +22,5 @@ namespace Tech.Test.Payment.Domain.Sales
 
         public virtual Sale Sale { get; protected set; }
 
-        public void SetSale(Guid saleId)
-        {
-            SaleId = saleId;
-        }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Tech.Test.Payment.Domain.Sales;
-using Tech.Test.Payment.Domain.Sells;
-
+﻿
 namespace Tech.Test.Payment.Domain.UnitTests.Sales;
 
 public class SaleTests
