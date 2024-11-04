@@ -12,7 +12,6 @@ namespace Tech.Test.Payment.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Tech Payment Test API", Version = "v1" });
 
-                // Configurar a autenticação Bearer
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,

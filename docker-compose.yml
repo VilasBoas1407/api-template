@@ -4,10 +4,12 @@ services:
     build:
       context: .  
       dockerfile: Tech.Test.Payment.Api/Dockerfile
-    ports:
-      - "5000:80"
     environment:
+      - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=db;Database=DB_PAYMENT;User Id=sa;Password=SenhaForte@123;
+    ports:
+      - "4000:8080"
+      - "4001:8081"
     depends_on:
       - db
 
