@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-
+    <ProjectReference Include="..\..\src\Vilas.Template.Domain\Vilas.Template.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

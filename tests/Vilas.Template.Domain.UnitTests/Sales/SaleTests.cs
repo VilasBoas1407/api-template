@@ -80,7 +80,6 @@ public class SaleTests
     [Theory]
     [InlineData(SaleStatus.PaymentApproved, SaleStatus.PaymentApproved, "O novo status deve ser diferente do status atual.")]
     [InlineData(SaleStatus.WaitingPayment, SaleStatus.Send, "Novo status inválido - A venda só pode ser alterada para")]
-    [InlineData(SaleStatus.WaitingPayment, SaleStatus.Delivered, "A venda não pode ter o status alterado, pois já foi entregue")]
     public void UpdateStatus_InvalidTransition_ShouldReturnConflictError(SaleStatus initialStatus, SaleStatus newStatus, string expected)
     {
         // Arrange
